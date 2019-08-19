@@ -7,9 +7,8 @@ using System.Text.RegularExpressions;
 
 namespace example_add_page_numbers_to_pdf_dotnet
 {
-    // This example has two parts,
-    // 1. Creating PDF with page numbers from scratch
-    // 2. Adding Page numbers to an existing PDF document.
+    // This example shows how to add page numbers to a new and an existing PDF document.
+    // It references the ceTe.DynamicPDF.CoreSuite.NET NuGet package.
     class Program
     {
         static void Main(string[] args)
