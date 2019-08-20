@@ -13,14 +13,37 @@ namespace example_add_page_numbers_to_pdf_dotnet
     {
         static void Main(string[] args)
         {
-            CreatePDFWithPageNumbers();
-
             AddPageNumbersToExistingPDF();
+
+            CreatePDFWithPageNumbers();
+        }
+
+        // This examples uses the DynamicPDF Merger for .NET Product
+        // Use the ceTe.DynamicPDF namespace for the Template class
+        // Use the ceTe.DynamicPDF.PageElements namespace for the PageNumberingLabel element.
+        // Use the ceTe.DynamicPDF.Merger namespace for the MergeDocument class.
+        private static void AddPageNumbersToExistingPDF()
+        {
+            //Create a MergeDocument object using the existing PDF
+            MergeDocument document = new MergeDocument(GetResourcePath("doc-a.pdf"));
+
+            //Create a template bject
+            Template template = new Template();
+
+            //Create a PageNumberingLabel and add it to the template
+            PageNumberingLabel pageLabels = new PageNumberingLabel("%%CP%% of %%TP%%", 0, 0, 200, 20);
+            template.Elements.Add(pageLabels);
+
+            //Set template to the document
+            document.Template = template;
+
+            //Save document.
+            document.Draw("output-existing-pdf.pdf");
         }
 
         // This example uses the DynamicPDF Generator for .NET product.
-        // Import the ceTe.DynamicPDF namespace for the Document, Page and Template classes.
-        // Import the ceTe.DynamicPDF.PageElements namespace for the PageNumberingLabel class.
+        // Use the ceTe.DynamicPDF namespace for the Document, Page and Template classes.
+        // Use the ceTe.DynamicPDF.PageElements namespace for the PageNumberingLabel class.
         private static void CreatePDFWithPageNumbers()
         {
             //Create document object
@@ -51,30 +74,7 @@ namespace example_add_page_numbers_to_pdf_dotnet
             document.Pages.Add(new Page()); //page 8
             document.Pages.Add(new Page()); //page 9
 
-            document.Draw("output.pdf");
-        }
-
-        // This examples uses the DynamicPDF Merger for .NET Product
-        // Import the ceTe.DynamicPDF namespace for the Template class
-        // Import the ceTe.DynamicPDF.PageElements namespace for the PageNumberingLabel element.
-        // Import the ceTe.DynamicPDF.Merger namespace for the MergeDocument class.
-        private static void AddPageNumbersToExistingPDF()
-        {
-            //Create a MergeDocument object using the existing PDF
-            MergeDocument document = new MergeDocument(GetResourcePath("doc-a.pdf"));
-
-            //Create a template bject
-            Template template = new Template();
-
-            //Create a PageNumberingLabel and add it to the template
-            PageNumberingLabel pageLabels = new PageNumberingLabel("%%CP%% of %%TP%%", 0, 0, 200, 20);
-            template.Elements.Add(pageLabels);
-
-            //Set template to the document
-            document.Template = template;
-
-            //Save document.
-            document.Draw("outputFromExistingPDF.pdf");
+            document.Draw("output-new-pdf.pdf");
         }
 
         // This is a helper function to get a full path to a file in the Resources folder.
